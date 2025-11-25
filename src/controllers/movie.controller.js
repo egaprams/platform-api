@@ -23,7 +23,7 @@ export const getMovieById = async (req, res) => {
     const { id } = req.params;
 
     const movie = await Movie.findByPk(id, {
-      attributes: ["id", "title", "description", "year", "poster_url", "created_at"],
+      attributes: ["id", "title", "description", "year", "poster_url", "created_at", "genre", "rating"],
     });
 
     if (!movie) {
