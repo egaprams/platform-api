@@ -4,7 +4,7 @@ import { Movie } from "../models/index.js";
 export const getMovies = async (req, res) => {
   try {
     const movies = await Movie.findAll({
-      attributes: ["id", "title", "description", "year", "poster_url", "created_at"],
+      attributes: ["id", "title", "description", "year", "poster_url", "created_at", "genre", "rating"],
       order: [["created_at", "DESC"]],
     });
 
