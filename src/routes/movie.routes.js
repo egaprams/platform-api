@@ -6,7 +6,7 @@ import authMiddleware from "../middleware/auth.js";
 
 const router = express.Router();
 
-router.get("/", getMovies);
+router.get("/",authMiddleware,  getMovies);
 router.post("/", authMiddleware, createMovie);
 router.get("/:id", getMovieById);
 
