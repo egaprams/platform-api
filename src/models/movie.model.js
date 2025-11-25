@@ -22,6 +22,14 @@ export const Movie = sequelize.define(
       type: DataTypes.INTEGER,
       allowNull: true,
     },
+    rating: {
+      type: DataTypes.FLOAT,
+      allowNull: true,
+    },
+    genre: {
+      type: DataTypes.STRING(255),
+      allowNull: true,
+    },
     poster_url: {
       type: DataTypes.STRING(500),
       allowNull: true,

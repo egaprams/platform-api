@@ -60,7 +60,7 @@ export const createMovie = async (req, res) => {
     }
 
     // Single create
-    const { title, description, year, poster_url } = body;
+    const { title, description, year, poster_url, genre, rating } = body;
 
     if (!title || !poster_url) {
       return res.status(400).json({
@@ -73,6 +73,8 @@ export const createMovie = async (req, res) => {
       description,
       year,
       poster_url,
+      genre,
+      rating
     });
 
     return res.status(201).json({
