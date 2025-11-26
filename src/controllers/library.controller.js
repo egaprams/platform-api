@@ -16,7 +16,7 @@ export const getLikedMovies = async (req, res) => {
         {
           model: Movie,
           as: "movie",
-          attributes: ["id", "title", "description", "year", "poster_url"],
+          attributes: ["id", "title", "description", "year", "poster_url", "genre", "rating"],
         },
       ],
       order: [["created_at", "DESC"]],
@@ -96,7 +96,7 @@ export const getWatchlist = async (req, res) => {
         {
           model: Movie,
           as: "movie",
-          attributes: ["id", "title", "description", "year", "poster_url"],
+          attributes: ["id", "title", "description", "year", "poster_url", "genre", "rating"],
         },
       ],
       order: [["created_at", "DESC"]],
