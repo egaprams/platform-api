@@ -4,6 +4,7 @@ import { User } from "./user.model.js";
 import { Movie } from "./movie.model.js";
 import { UserLike } from "./userLike.model.js";
 import { Watchlist } from "./watchlist.model.js";
+import { Review } from "./review.model.js";
 
 // ===== Associations =====
 
@@ -23,13 +24,20 @@ UserLike.belongsTo(Movie, { foreignKey: "movie_id", as: "movie" });
 Movie.hasMany(Watchlist, { foreignKey: "movie_id", as: "movieWatchlists" });
 Watchlist.belongsTo(Movie, { foreignKey: "movie_id", as: "movie" });
 
+Movie.hasMany(Review, {foreignKey: "movie_id", as: "movieReview" });
+Review.belongsTo(Movie, { foreignKey: "movie_id", as: "movie" });
+
+User.hasMany(Review, {foreignKey: "user_id", as: "userReview" });
+Review.belongsTo(User, { foreignKey: "user_id", as: "user" });
+
 const db = {
   sequelize,
   User,
   Movie,
   UserLike,
   Watchlist,
+  Review
 };
 
-export { sequelize, User, Movie, UserLike, Watchlist };
+export { sequelize, User, Movie, UserLike, Watchlist, Review };
 export default db;

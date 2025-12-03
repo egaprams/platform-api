@@ -25,13 +25,6 @@ export const Review = sequelize.define(
       type: DataTypes.FLOAT,
       allowNull: true,
     },
-    display_name: {
-      // Nama yang akan ditampilkan di halaman review
-      // - User terdaftar: pakai username (User.name)
-      // - Guest: "Anonymous"
-      type: DataTypes.STRING(100),
-      allowNull: false,
-    },
   },
   {
     tableName: "reviews",

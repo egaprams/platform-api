@@ -4,6 +4,9 @@ import { Movie, Review, User } from "../models/index.js";
 
 dotenv.config();
 
+const getUserId = (req) => req.user?.id;
+
+
 // helper: decode token jika ada, tapi tidak wajib
 const getUserFromTokenIfAny = async (req) => {
   const header = req.headers["authorization"];
@@ -38,7 +41,12 @@ export const getReviewsByMovie = async (req, res) => {
     const reviews = await Review.findAll({
       where: { movie_id: movieId },
       order: [["created_at", "DESC"]],
-      attributes: ["id", "content", "rating", "display_name", "created_at"],
+      attributes: ["id", "content", "rating", "user_id", "created_at"],
+      include: {
+        model: User,
+        as: "user",
+        attributes: ["id","name"]
+      }
     });
 
     return res.json({
@@ -65,25 +73,23 @@ export const createReview = async (req, res) => {
       return res.status(404).json({ message: "Film tidak ditemukan" });
     }
 
-    // Coba baca user dari token (jika user login)
-    const user = await getUserFromTokenIfAny(req);
 
-    let userId = null;
-    let displayName = "Anonymous";
+    const userId = getUserId(req);
+    // let displayName = "Anonymous";
 
-    if (user) {
-      // User terdaftar -> pakai username untuk display_name
-      userId = user.id;
-      displayName = user.name;
+    if (!userId) {
+      console.log(userId)
+      return res.status(401).json({
+        error: "Invalid Token",
+        message: "Token tidak ditemukan!"
+      })
     }
-    // Kalau tidak ada user (guest / token tidak valid) -> tetap Anonymous
 
     const review = await Review.create({
       movie_id: movie.id,
       user_id: userId,
       content,
       rating,
-      display_name: displayName,
     });
 
     return res.status(201).json({
@@ -92,7 +98,6 @@ export const createReview = async (req, res) => {
         id: review.id,
         content: review.content,
         rating: review.rating,
-        display_name: review.display_name,
         created_at: review.created_at,
       },
     });
