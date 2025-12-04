@@ -2,3 +2,12 @@
 .env.example
 .htdocs
 node_modules
+
+OPENAI_KEY=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
+PORT=3000
+
+DB_HOST=localhost
+DB_PORT=3306
+DB_NAME=platform_api
+DB_USER=root
+DB_PASSWORD=
