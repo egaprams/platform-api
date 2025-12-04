@@ -14,14 +14,15 @@ const startServer = async () => {
 
     await sequelize.sync({ alter: true }); // tambahin { alter: true } kalau lagi dev
     console.log("Models synced");
-
-    app.listen(PORT, () => {
-      console.log(`Server running at http://localhost:${PORT}`);
-    });
   } catch (error) {
-    console.error("Cannot start server:", error);
-    process.exit(1);
+    console.error(
+      "Gagal konek ke database. Server tetap dijalankan tanpa DB. Detail:",
+      error.message
+    );
   }
+  app.listen(PORT, () => {
+    console.log(`Server running at http://localhost:${PORT}`);
+  });
 };
 
 startServer();
